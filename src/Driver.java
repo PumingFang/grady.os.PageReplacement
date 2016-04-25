@@ -9,7 +9,12 @@ import java.util.Scanner;
  * @version 1.0
  */
 public class Driver {
+    // Default reference string length
     private static final int REFERENCE_STRING_LENGTH = 10;
+
+    // Constant reference string used for test purposes
+    // Taken from Operating Systems Concepts 9th Edition, Exercise 9.21 (Page 453)
+    // This way, I can be confident of what the result should be
     private static final int[] TEST_REFERENCE_STRING = { 7, 2, 3, 1, 2, 5, 3, 4, 6, 7, 7, 1, 0, 5, 4, 6, 2, 3, 0, 1 };
 
     public static void main(String[] args) {
@@ -26,21 +31,22 @@ public class Driver {
 
         // Insure user input is between 1 and 7, inclusive
         while (numPageFrames > 7 || numPageFrames < 1) {
-            System.out.println("ERROR: The number of page frames must be in the range 1 - 7. Please re-enter the number of page frames: ");
+            System.out.print("ERROR: The number of page frames must be in the range 1 - 7. Please re-enter the number of page frames: ");
             numPageFrames = scanner.nextInt();
         }
 
         // Generate a random page reference string
         int[] referenceString = TEST_REFERENCE_STRING; //generateReferenceString();
 
-        Replacement fifoReplacement = new FIFOReplacement(numPageFrames);
-        System.out.println("FIFO Faults: " + fifoReplacement.insertAll(referenceString));
+        // Create a collection of replacement algorithms
+        // that will be executed. This is where using the
+        // abstract class is useful
+        Replacement[] algorithms = new Replacement[]{ new FIFOReplacement(numPageFrames), new LRUReplacement(numPageFrames), new OPTReplacement(numPageFrames) };
 
-        Replacement lruReplacement = new LRUReplacement(numPageFrames);
-        System.out.println("LRU Faults: " + lruReplacement.insertAll(referenceString));
-
-        Replacement optReplacement = new OPTReplacement(numPageFrames);
-        System.out.println("OPT Faults: " + optReplacement.insertAll(referenceString));
+        // Execute all of the replacement algorithms
+        for (Replacement alg : algorithms) {
+            alg.insertAll(referenceString, System.out);
+        }
     }
 
     /**

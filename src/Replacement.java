@@ -1,13 +1,15 @@
+import java.io.PrintStream;
+
 /**
  * Base definition of a page replacement algorithm.
  *
  * @author Connor P Grady
  */
 abstract class Replacement {
-    public int pageFrameCount;
-    public int faultCount;
-    public int[] pageFrame;
-    public int pointer;
+    int pageFrameCount;
+    int faultCount;
+    int[] pageFrame;
+    int pointer;
 
     Replacement(int pageFrameCount) {
         this.pageFrameCount = pageFrameCount;
@@ -22,9 +24,8 @@ abstract class Replacement {
 
     /**
      * Inserts all of the specified pages into the page frame
-     * and returns the number of faults encountered.
+     * and writes the number of faults encountered.
      * @param referenceString The reference pages to be inserted.
-     * @return The number of faults encountered.
      */
-    public abstract int insertAll(int[] referenceString);
+    public abstract void insertAll(int[] referenceString, PrintStream out);
 }

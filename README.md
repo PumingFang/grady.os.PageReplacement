@@ -3,13 +3,13 @@
 This project demonstrates three of the common page replacement algorithms used by operating systems to perform virtual memory paging. This project is written entirely in Java using JetBrains IntelliJ 2016.1 Ultimate using the Java JDK 1.8.
 
 ##FIFO Replacement Algorithm
-This algorithm uses the first in, first out (FIFO) concept to handle replacement of pages in the page frame. Essentially, when a fault is encountered a new page is to be entered, the existing page that is replaced would be the once that was first entered.
+This algorithm uses the first in, first out (FIFO) concept to handle replacement of pages in the page frame. Essentially, when a fault is encountered and a new page is to be entered, the existing page that is replaced would be the once that was first entered.
 
 ##LRU Replacement Algorithm
 This algorithm uses the last recently used (LRU) concept to handle replacement of pages in the page frame. This means that page to be replaced upon a fault is the one that, as its name describes, was last used. Therefore, each page in the frame has an age that is incremented on each fault and reset on each hit.
 
 ##OPT Replacement Algorithm
-This algorithm uses the optimal replacement strategy. This means that the page to be replaced upon a fault is the one that farthest from next being inserted.
+This algorithm uses the optimal replacement strategy. This means that the page to be replaced upon a fault is the one that is farthest from next being inserted.
 
 ##Design Decisions
 This project, due to its use of multiple replacement algorithms which all serve the same purpose, lent itself well to the use of an abstract class. Therefore, I have an abstract class `Replacement` that is then extended by each of the disparate replacement algorithms. This has the benefit of allowing me to write driver code that is decoupled from the actual implementations of each of the algorithms.

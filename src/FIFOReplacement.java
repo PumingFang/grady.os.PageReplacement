@@ -1,3 +1,4 @@
+import java.io.PrintStream;
 import java.util.stream.IntStream;
 
 /**
@@ -44,17 +45,16 @@ class FIFOReplacement extends Replacement {
 
     /**
      * Inserts all of the specified pages into the page frame
-     * and returns the number of faults encountered.
+     * and writes the number of faults encountered.
      * @param referenceString The reference pages to be inserted.
-     * @return The number of faults encountered.
      */
     @Override
-    public int insertAll(int[] referenceString) {
+    public void insertAll(int[] referenceString, PrintStream out) {
         // Insert each element in the reference string
         // into the page frame
         for(int i : referenceString) insert(i);
 
-        // Return the fault count
-        return faultCount;
+        // Write to the provided printstream the fault count
+        out.println("FIFO faults: " + faultCount);
     }
 }
