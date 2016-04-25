@@ -10,6 +10,7 @@ import java.util.Scanner;
  */
 public class Driver {
     private static final int REFERENCE_STRING_LENGTH = 10;
+    private static final int[] TEST_REFERENCE_STRING = { 7, 2, 3, 1, 2, 5, 3, 4, 6, 7, 7, 1, 0, 5, 4, 6, 2, 3, 0, 1 };
 
     public static void main(String[] args) {
         System.out.println("UWW CS 424 | Spring 2016 | Program 4");
@@ -30,7 +31,7 @@ public class Driver {
         }
 
         // Generate a random page reference string
-        int[] referenceString = generateReferenceString();
+        int[] referenceString = TEST_REFERENCE_STRING; //generateReferenceString();
 
         Replacement fifoReplacement = new FIFOReplacement(numPageFrames);
         System.out.println("FIFO Faults: " + fifoReplacement.insertAll(referenceString));

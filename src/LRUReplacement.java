@@ -8,8 +8,15 @@ import java.util.stream.IntStream;
  * @version 1.0
  */
 class LRUReplacement extends Replacement {
+    // Collection of ages, each one pertaining
+    // to a index-matched page in the page frame
     private int[] ages;
 
+    /**
+     * Initializes a new instance of the LRU page replacement
+     * algorithm with the specified page frame count.
+     * @param pageFrameCount The count of page frames in the system.
+     */
     LRUReplacement(int pageFrameCount) {
         super(pageFrameCount);
         this.ages = new int[pageFrameCount];
@@ -22,17 +29,26 @@ class LRUReplacement extends Replacement {
      */
     @Override
     public void insert(int pageNumber) {
-        // Increment each age
+        // Increment age of all pages
+        // Each insertion is an age for all pages
         for (int i = 0; i < pageFrameCount; i++) ages[i]++;
 
         if (!IntStream.of(pageFrame).anyMatch(i -> i == pageNumber)) {
             // Specified page number is not in page frame
+            // Therefore, we insert the page and this is a fault
+
+            // Increment faultCount
             faultCount++;
+            // Set point to the position of the oldest page
             pointer = getIndexOfMaxAge();
+            // Insert the new page into the position of the oldest page
             pageFrame[pointer] = pageNumber;
+            // Reset the age of the new page
             ages[pointer] = 0;
         } else {
-            // Increment the age of each matching page
+            // Page is in the page frame
+            // Therefore, this is a hit and we do not re-add it
+            // We do, however, reset the age of the page
             for (int i = 0; i < pageFrameCount; i++) {
                 if (pageFrame[i] == pageNumber) ages[i] = 0;
             }
@@ -48,11 +64,18 @@ class LRUReplacement extends Replacement {
      */
     @Override
     public int insertAll(int[] referenceString) {
+        // Insert each element in the reference string
+        // into the page frame
         for(int i : referenceString) insert(i);
 
+        // Return the fault count as it is
         return faultCount;
     }
 
+    /**
+     * Retrieves the index of the oldest element in the page frame.
+     * @return Index of the oldest element in the page frame.
+     */
     private int getIndexOfMaxAge() {
         int maxAge = 0;
 
