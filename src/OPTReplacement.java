@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
  * @author Connor P Grady
  * @version 1.0
  *
- * @TODO This algorithm is return a value of 15 for the test reference string, while a value of 13 is expected.
+ * @TODO This algorithm is returning a value of 15 for the test reference string, while a value of 13 is expected.
  */
 class OPTReplacement extends Replacement {
     // Counter that keeps track of how many of the reference
@@ -100,8 +100,9 @@ class OPTReplacement extends Replacement {
     }
 
     /**
-     * Retrieves the index of the max element in the page frame.
-     * @return Index of the max element in the page frame.
+     * Retrieves the index of the max element in the specified array.
+     * @param array The array whose max element's index should be found.
+     * @return Index of the max element in the specified array.
      */
     private static int getIndexOfMax(int[] array) {
         int max = 0;
