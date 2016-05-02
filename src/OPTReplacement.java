@@ -88,10 +88,11 @@ class OPTReplacement extends Replacement {
                 if (refString[j] == pageFrame[i]) {
                     // If matching, this is the distance for this page
                     distance[i] = distanceCount;
-                } else {
-                    // Increment the distance count
-                    distanceCount++;
+                    break;
                 }
+
+                // Increment the distance count
+                distanceCount++;
             }
         }
 

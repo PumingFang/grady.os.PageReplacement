@@ -21,22 +21,33 @@ public class Driver {
         System.out.println("UWW CS 424 | Spring 2016 | Program 4");
         System.out.println("OS Page Replacement Algorithms\n");
 
-        System.out.print("Please enter the number of page frames (1 - 7): ");
+        System.out.print("Please enter the number of page frames (1 - 7) OR you may also enter the string 'test' to use a predefined reference string and frame size of 3, matching Exercise 9.21 from the book: ");
 
         // Create the Scanner on system input
         Scanner scanner = new Scanner(System.in);
 
-        // Get the number of page frames from input
-        int numPageFrames = scanner.nextInt();
+        String input = scanner.nextLine();
 
-        // Insure user input is between 1 and 7, inclusive
-        while (numPageFrames > 7 || numPageFrames < 1) {
-            System.out.print("ERROR: The number of page frames must be in the range 1 - 7. Please re-enter the number of page frames: ");
-            numPageFrames = scanner.nextInt();
+        int[] referenceString;
+        int numPageFrames = 0;
+
+        if (input.equals("test")) {
+            // Use the test reference string
+            referenceString = TEST_REFERENCE_STRING;
+            numPageFrames = 3;
+        } else {
+            // Get the number of page frames from input
+            numPageFrames = Integer.parseInt(input);
+
+            // Insure user input is between 1 and 7, inclusive
+            while (numPageFrames > 7 || numPageFrames < 1) {
+                System.out.print("ERROR: The number of page frames must be in the range 1 - 7. Please re-enter the number of page frames: ");
+                numPageFrames = scanner.nextInt();
+            }
+
+            // Generate a random page reference string
+            referenceString = generateReferenceString();
         }
-
-        // Generate a random page reference string
-        int[] referenceString = TEST_REFERENCE_STRING; //generateReferenceString();
 
         // Create a collection of replacement algorithms
         // that will be executed. This is where using the
